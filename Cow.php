@@ -1,39 +1,20 @@
 <?php
 
 
-class Cow
+class Cow implements Animal, produceMilk
 {
-    protected $id;
-    protected $countCow = 10;
-
+    public $id;
     public function __construct()
     {
-        $this->id = random_int(1000, 9999); //получаем случаный id длинною в 4 символов
-    }
-
-    public function getMilk(): int
-    {
-        return random_int(8, 12); //получаем 8-12 литров молока
+        $this->id = substr(md5(mt_rand()), 0, 6); //get a random 6 character id
     }
 
     /**
      * @return int
+     * @throws Exception
      */
-    public function getIdCow():int
+    public function produceMilk(): int
     {
-        return $this->id;
-    }
-
-    public function addCow():int
-    {
-        return ++$this->countCow;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCountCow(): int
-    {
-        return $this->countCow;
+        return random_int(8, 12); //we get from 8 to 12 liters of milk
     }
 }
