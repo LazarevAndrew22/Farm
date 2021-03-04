@@ -1,39 +1,21 @@
 <?php
 
 
-class Chicken
+class Chicken implements Animal, produceEggs
 {
-    protected $id;
-    protected $countChicken = 20;
-
-    public function __construct(){
-        $this->id = random_int(1000, 9999); //получаем случаный id длинною в 4 символов
-    }
-
-    public function getEggs(): int
+    public $id;
+    public function __construct()
     {
-        return random_int(0, 1); //получаем 0 или 1 л молока
+        $this->id = substr(md5(mt_rand()), 0, 6); //get a random 6 character id
     }
+
 
     /**
      * @return int
+     * @throws Exception
      */
-    public function getIdChicken():int
+    public function produceEggs(): int
     {
-        return $this->id;
+        return random_int(0, 1); //we get 0 or 1 egg
     }
-
-    public function addChicken():int
-    {
-        return ++$this->countChicken;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCountChicken(): int
-    {
-        return $this->countChicken;
-    }
-
 }
