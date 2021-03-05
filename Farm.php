@@ -3,33 +3,10 @@
 
 class Farm
 {
-
-    private $barn;
     private $animals = [];
+    private $result = [];
+    private $idAnimalsList = [];
 
-    public function __construct(Barn $barn)
-    {
-        $this->barn = $barn;
-    }
-
-    /**
-     * @return int
-     */
-    public function returnMilk(): int
-    {
-        return $this->barn->howMuchMilk();
-
-    }
-
-
-    /**
-     * @return int
-     */
-    public function returnEggs(): int
-    {
-        return $this->barn->howMuchEggs();
-
-    }
 
     /**
      * @param Animal $animal
@@ -39,20 +16,35 @@ class Farm
         $this->animals[] = $animal; //add the animal to the array
     }
 
-    public function collectProducts():void  //collection of products
-    {
-        foreach ($this->animals as $animal)
-        {
-            if ($animal instanceOf produceMilk) { //if it gives milk => collect milk
-                $milkLiters = $animal->produceMilk();
-                $this->barn->addMilk((int)$milkLiters);
-            }
+    /**
+     * @return array
+     */
 
-            if ($animal instanceOf produceEggs) { //if eggs => collect eggs
-                $eggsCount = $animal->produceEggs();
-                $this->barn->addEggs((int)$eggsCount);
-            }
+    public function collectProducts(): array  //collection of products
+    {
+        foreach ($this->animals as $animal) {
+            $this->result[] = $animal->produceProduct();
         }
+        return $this->result;
+    }
+
+    /**
+     * @return array
+     */
+    public function idAnimalsList(): array
+    {
+        foreach ($this->animals as $animal) {
+            $this->idAnimalsList[] = $animal->getId();
+        }
+        return $this->idAnimalsList;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAnimals(): array
+    {
+        return $this->animals;
     }
 }
 

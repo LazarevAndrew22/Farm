@@ -1,6 +1,6 @@
 <?php
 
-spl_autoload_register(function($class)
+spl_autoload_register(static function($class)
 {
     $path = str_replace('\\', '/', $class. '.php');
     if (file_exists($path)){
@@ -8,10 +8,8 @@ spl_autoload_register(function($class)
     }
 });
 
+$myFarm = new Farm();
 
-$barn = new Barn();
-
-$myFarm = new Farm($barn);
 
 for ($i=0;$i<20;$i++) {
     $myFarm->addAnimal(new Chicken()); //add chickens
@@ -22,10 +20,23 @@ for ($i=0;$i<10;$i++) {
 }
 
 
-$myFarm->collectProducts(); //collecting products
+
+$eggsCount = 0;
+$milkLitters = 0;
 
 
-//results ->
-echo "Milk collected " . $myFarm->returnMilk(). PHP_EOL;
-echo "Eggs collected " .$myFarm->returnEggs(). PHP_EOL;
+foreach ($myFarm->getAnimals() as $key => $el){
+    if ($el instanceOf Chicken){
+        $eggsCount += $myFarm->collectProducts()[$key];
+    }
+    if ($el instanceOf Cow){
+        $milkLitters += $myFarm->collectProducts()[$key];
+    }
+}
+
+echo "Count of milk " . $milkLitters . PHP_EOL;
+echo "Count of eggs " . $eggsCount . PHP_EOL;
+
+
+
 
